@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""creating a console"""
+"""creating a command interpreter Console"""
 import cmd
 from models.base_model import BaseModel
 from models.user import User
