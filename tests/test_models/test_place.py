@@ -10,12 +10,24 @@ from datetime import datetime
 
 class test_insatiation(unittest.TestCase):
     """INstatiation class"""
+    def test_class_attr(self):
+        self.assertTrue(type(Place.city_id) == str)
+        self.assertTrue(type(Place.user_id) == str)
+        self.assertTrue(type(Place.name) == str)
+        self.assertTrue(type(Place.description) == str)
+        self.assertTrue(type(Place.number_rooms) == int)
+        self.assertTrue(type(Place.number_bathrooms) == int)
+        self.assertTrue(type(Place.max_guest) == int)
+        self.assertTrue(type(Place.price_by_night) == int)
+        self.assertTrue(type(Place.longitude) == float)
+        self.assertTrue(type(Place.latitude) == float)
+
     def test_class_type(self):
         pl = Place()
-        self.assertTrue(type(pl), Place)
-        self.assertTrue(type(pl.id), str)
-        self.assertTrue(type(pl.created_at), datetime)
-        self.assertTrue(type(pl.updated_at), datetime)
+        self.assertTrue(type(pl) == Place)
+        self.assertTrue(type(pl.id) == str)
+        self.assertTrue(type(pl.created_at) == datetime)
+        self.assertTrue(type(pl.updated_at) == datetime)
 
     def test_updated_at(self):
         pl = Place()
@@ -50,7 +62,7 @@ class test_insatiation(unittest.TestCase):
 
     def test_None(self):
         pl = Place(id=None)
-        self.assertTrue(pl.id == None)
+        self.assertTrue(pl.id is None)
         with self.assertRaises(TypeError):
             pl = Place(created_at=None)
 
@@ -79,7 +91,8 @@ class test_base_model_class(unittest.TestCase):
     def test___str__(self):
         pl = Place()
         test = pl.__str__()
-        test2 = "[{}] ({}) {}".format(pl.__class__.__name__, pl.id, pl.__dict__)
+        test2 = "[{}] ({}) {}".format(pl.__class__.__name__,
+                                      pl.id, pl.__dict__)
         self.assertTrue(test == test2)
 
     def test_save(self):
@@ -103,7 +116,7 @@ class test_base_model_class(unittest.TestCase):
         with open("file.json", "r") as f:
             save = f.read()
             self.assertIn("{}.{}".format("Place", pl.id), save)
-    
+
     def test_to_dict(self):
         pl = Place()
         dicti = pl.to_dict()
@@ -139,6 +152,7 @@ class test_base_model_class(unittest.TestCase):
         with self.assertRaises(TypeError):
             pl = Place()
             dicti = pl.to_dict(None)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -46,7 +46,8 @@ class Test_file_storage(unittest.TestCase):
         bm = BaseModel()
         self.assertTrue(type(bm) == BaseModel)
         models.storage.new(bm)
-        self.assertIn("BaseModel.{}".format(bm.id), models.storage.all().keys())
+        self.assertIn("BaseModel.{}".format(bm.id),
+                      models.storage.all().keys())
         ur = User()
         self.assertTrue(type(ur) == User)
         models.storage.new(ur)
@@ -134,4 +135,3 @@ class Test_file_storage(unittest.TestCase):
         self.assertIn("{}.{}".format("Place", pl.id), info)
         self.assertIn("{}.{}".format("Review", rw.id), info)
         self.assertIn("{}.{}".format("Amenity", am.id), info)
-

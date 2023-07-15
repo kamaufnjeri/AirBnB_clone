@@ -10,12 +10,17 @@ from datetime import datetime
 
 class test_insatiation(unittest.TestCase):
     """INstatiation class"""
+
+    def test_class_attr(self):
+        self.assertEqual(type(City.name), str)
+        self.assertEqual(type(City.state_id), str)
+
     def test_class_type(self):
         ct = City()
-        self.assertTrue(type(ct), City)
-        self.assertTrue(type(ct.id), str)
-        self.assertTrue(type(ct.created_at), datetime)
-        self.assertTrue(type(ct.updated_at), datetime)
+        self.assertTrue(type(ct) == City)
+        self.assertTrue(type(ct.id) == str)
+        self.assertTrue(type(ct.created_at) == datetime)
+        self.assertTrue(type(ct.updated_at) == datetime)
 
     def test_updated_at(self):
         ct = City()
@@ -50,7 +55,7 @@ class test_insatiation(unittest.TestCase):
 
     def test_None(self):
         ct = City(id=None)
-        self.assertTrue(ct.id == None)
+        self.assertTrue(ct.id is None)
         with self.assertRaises(TypeError):
             ct = City(created_at=None)
 
@@ -79,7 +84,8 @@ class test_base_model_class(unittest.TestCase):
     def test___str__(self):
         ct = City()
         test = ct.__str__()
-        test2 = "[{}] ({}) {}".format(ct.__class__.__name__, ct.id, ct.__dict__)
+        test2 = "[{}] ({}) {}".format(ct.__class__.__name__, ct.id,
+                                      ct.__dict__)
         self.assertTrue(test == test2)
 
     def test_save(self):
@@ -103,7 +109,7 @@ class test_base_model_class(unittest.TestCase):
         with open("file.json", "r") as f:
             save = f.read()
             self.assertIn("{}.{}".format("City", ct.id), save)
-    
+
     def test_to_dict(self):
         ct = City()
         dicti = ct.to_dict()
@@ -139,6 +145,7 @@ class test_base_model_class(unittest.TestCase):
         with self.assertRaises(TypeError):
             ct = City()
             dicti = ct.to_dict(None)
+
 
 if __name__ == "__main__":
     unittest.main()

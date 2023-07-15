@@ -27,7 +27,7 @@ class test_insatiation(unittest.TestCase):
         ur2 = User()
         self.assertTrue(ur.id != ur2.id)
 
-     def test_email_is_public_str(self):
+    def test_email_is_public_str(self):
         self.assertEqual(str, type(User.email))
 
     def test_password_is_public_str(self):
@@ -62,7 +62,7 @@ class test_insatiation(unittest.TestCase):
 
     def test_None(self):
         ur = User(id=None)
-        self.assertTrue(ur.id == None)
+        self.assertTrue(ur.id is None)
         with self.assertRaises(TypeError):
             ur = User(created_at=None)
 
@@ -91,7 +91,8 @@ class test_base_model_class(unittest.TestCase):
     def test___str__(self):
         ur = User()
         test = ur.__str__()
-        test2 = "[{}] ({}) {}".format(ur.__class__.__name__, ur.id, ur.__dict__)
+        test2 = "[{}] ({}) {}".format(ur.__class__.__name__,
+                                      ur.id, ur.__dict__)
         self.assertTrue(test == test2)
 
     def test_save(self):
@@ -115,7 +116,7 @@ class test_base_model_class(unittest.TestCase):
         with open("file.json", "r") as f:
             save = f.read()
             self.assertIn("{}.{}".format("User", ur.id), save)
-    
+
     def test_to_dict(self):
         ur = User()
         dicti = ur.to_dict()
@@ -151,6 +152,7 @@ class test_base_model_class(unittest.TestCase):
         with self.assertRaises(TypeError):
             ur = User()
             dicti = ur.to_dict(None)
+
 
 if __name__ == "__main__":
     unittest.main()

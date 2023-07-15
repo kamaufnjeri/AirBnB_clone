@@ -12,10 +12,10 @@ class test_insatiation(unittest.TestCase):
     """INstatiation class"""
     def test_class_type(self):
         bm = BaseModel()
-        self.assertTrue(type(bm), BaseModel)
-        self.assertTrue(type(bm.id), str)
-        self.assertTrue(type(bm.created_at), datetime)
-        self.assertTrue(type(bm.updated_at), datetime)
+        self.assertTrue(type(bm) == BaseModel)
+        self.assertTrue(type(bm.id) == str)
+        self.assertTrue(type(bm.created_at) == datetime)
+        self.assertTrue(type(bm.updated_at) == datetime)
 
     def test_updated_at(self):
         bm = BaseModel()
@@ -50,7 +50,7 @@ class test_insatiation(unittest.TestCase):
 
     def test_None(self):
         bm = BaseModel(id=None)
-        self.assertTrue(bm.id == None)
+        self.assertTrue(bm.id is None)
         with self.assertRaises(TypeError):
             bm = BaseModel(created_at=None)
 
@@ -79,7 +79,8 @@ class test_base_model_class(unittest.TestCase):
     def test___str__(self):
         bm = BaseModel()
         test = bm.__str__()
-        test2 = "[{}] ({}) {}".format(bm.__class__.__name__, bm.id, bm.__dict__)
+        test2 = "[{}] ({}) {}".format(bm.__class__.__name__, bm.id,
+                                      bm.__dict__)
         self.assertTrue(test == test2)
 
     def test_save(self):
@@ -103,7 +104,7 @@ class test_base_model_class(unittest.TestCase):
         with open("file.json", "r") as f:
             save = f.read()
             self.assertIn("{}.{}".format("BaseModel", bm.id), save)
-    
+
     def test_to_dict(self):
         bm = BaseModel()
         dicti = bm.to_dict()
@@ -139,6 +140,7 @@ class test_base_model_class(unittest.TestCase):
         with self.assertRaises(TypeError):
             bm = BaseModel()
             dicti = bm.to_dict(None)
+
 
 if __name__ == "__main__":
     unittest.main()

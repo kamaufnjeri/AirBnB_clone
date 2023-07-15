@@ -10,12 +10,16 @@ from datetime import datetime
 
 class test_insatiation(unittest.TestCase):
     """INstatiation class"""
+
+    def test_class_attr(self):
+        self.assertTrue(type(Amenity.name), str)
+
     def test_class_type(self):
         am = Amenity()
-        self.assertTrue(type(am), Amenity)
-        self.assertTrue(type(am.id), str)
-        self.assertTrue(type(am.created_at), datetime)
-        self.assertTrue(type(am.updated_at), datetime)
+        self.assertTrue(type(am) == Amenity)
+        self.assertTrue(type(am.id) == str)
+        self.assertTrue(type(am.created_at) == datetime)
+        self.assertTrue(type(am.updated_at) == datetime)
 
     def test_updated_at(self):
         am = Amenity()
@@ -50,7 +54,7 @@ class test_insatiation(unittest.TestCase):
 
     def test_None(self):
         am = Amenity(id=None)
-        self.assertTrue(am.id == None)
+        self.assertTrue(am.id is None)
         with self.assertRaises(TypeError):
             am = Amenity(created_at=None)
 
@@ -79,7 +83,8 @@ class test_base_model_class(unittest.TestCase):
     def test___str__(self):
         am = Amenity()
         test = am.__str__()
-        test2 = "[{}] ({}) {}".format(am.__class__.__name__, am.id, am.__dict__)
+        test2 = "[{}] ({}) {}".format(am.__class__.__name__,
+                                      am.id, am.__dict__)
         self.assertTrue(test == test2)
 
     def test_save(self):
@@ -103,7 +108,7 @@ class test_base_model_class(unittest.TestCase):
         with open("file.json", "r") as f:
             save = f.read()
             self.assertIn("{}.{}".format("Amenity", am.id), save)
-    
+
     def test_to_dict(self):
         am = Amenity()
         dicti = am.to_dict()
@@ -139,6 +144,7 @@ class test_base_model_class(unittest.TestCase):
         with self.assertRaises(TypeError):
             am = Amenity()
             dicti = am.to_dict(None)
+
 
 if __name__ == "__main__":
     unittest.main()

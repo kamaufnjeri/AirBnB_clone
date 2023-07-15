@@ -10,12 +10,17 @@ from datetime import datetime
 
 class test_insatiation(unittest.TestCase):
     """INstatiation class"""
+    def test_class_attt(self):
+        self.assertTrue(type(Review.place_id) == str)
+        self.assertTrue(type(Review.user_id) == str)
+        self.assertTrue(type(Review.text) == str)
+
     def test_class_type(self):
         rw = Review()
-        self.assertTrue(type(rw), Review)
-        self.assertTrue(type(rw.id), str)
-        self.assertTrue(type(rw.created_at), datetime)
-        self.assertTrue(type(rw.updated_at), datetime)
+        self.assertTrue(type(rw) == Review)
+        self.assertTrue(type(rw.id) == str)
+        self.assertTrue(type(rw.created_at) == datetime)
+        self.assertTrue(type(rw.updated_at) == datetime)
 
     def test_updated_at(self):
         rw = Review()
@@ -50,7 +55,7 @@ class test_insatiation(unittest.TestCase):
 
     def test_None(self):
         rw = Review(id=None)
-        self.assertTrue(rw.id == None)
+        self.assertTrue(rw.id is None)
         with self.assertRaises(TypeError):
             rw = Review(created_at=None)
 
@@ -79,7 +84,8 @@ class test_base_model_class(unittest.TestCase):
     def test___str__(self):
         rw = Review()
         test = rw.__str__()
-        test2 = "[{}] ({}) {}".format(rw.__class__.__name__, rw.id, rw.__dict__)
+        test2 = "[{}] ({}) {}".format(rw.__class__.__name__,
+                                      rw.id, rw.__dict__)
         self.assertTrue(test == test2)
 
     def test_save(self):
@@ -103,7 +109,7 @@ class test_base_model_class(unittest.TestCase):
         with open("file.json", "r") as f:
             save = f.read()
             self.assertIn("{}.{}".format("Review", rw.id), save)
-    
+
     def test_to_dict(self):
         rw = Review()
         dicti = rw.to_dict()
@@ -139,6 +145,7 @@ class test_base_model_class(unittest.TestCase):
         with self.assertRaises(TypeError):
             rw = Review()
             dicti = rw.to_dict(None)
+
 
 if __name__ == "__main__":
     unittest.main()
