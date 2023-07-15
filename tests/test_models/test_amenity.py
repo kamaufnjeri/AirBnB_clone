@@ -10,9 +10,8 @@ from datetime import datetime
 
 class test_insatiation(unittest.TestCase):
     """INstatiation class"""
-
     def test_class_attr(self):
-        self.assertTrue(type(Amenity.name), str)
+        self.assertTrue(type(Amenity.name) == str)
 
     def test_class_type(self):
         am = Amenity()
